@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-nav,.btn-container{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 10px;
+
+}
+.logout{
+    margin-left: 10px;
+}
+.logout:hover{
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 20%;
+}
+
+.text{
+    color: #211f1fcf;
+}
+.emp-detail{
+    height: 500px;
+    width: 80%;
+    margin-left: 10%;
+    border: 2px solid #e7ddd1;
+    border-radius: 5px;
+}
+
+.bt{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
