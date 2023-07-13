@@ -7,9 +7,9 @@ export default function Home(){
     let {user,rol} = useAuth()
     // let dec = user.role
 
-    if(rol==="employee"){
-        console.log("done")
-    }
+    // if(rol==="employee"){
+    //     console.log("done")
+    // }
 
 
     return<>

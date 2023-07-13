@@ -20,6 +20,7 @@ export function AuthContextProvider({ children }) {
 	const [token, setToken] = useState(null);
 	const [user, setUser] = useState(null);
 	const [rol, setRol] = useState(null)
+	const [employee, setEmployee] = useState(null)
 
 	const set = (token) => {
 		setToken(token);
@@ -31,20 +32,7 @@ export function AuthContextProvider({ children }) {
 		});
 	};
 
-	useLayoutEffect(() => {
-		const token = localStorage.getItem("token");
 
-		if (token) {
-			setToken(token);
-			axios.defaults.headers.common.Authorization =
-				"Bearer " + token;
-
-			axios.get("auth/whoami").then((res) => {
-				setUser(res.data.data);
-				setRol(res.data.data.role)
-			});
-		}
-	}, []);
 
 	// this is the function for sign-in .....................................
 	const signIn = async (email, password) => {
@@ -58,11 +46,39 @@ export function AuthContextProvider({ children }) {
 			);
 
 			set(data.token);
+			// console.log(data, "data")
+			// setUser(data)
 			localStorage.setItem("token", data.token);
 		} catch (e) {
 			console.log(e);
 		}
 	};
+
+
+		useLayoutEffect(() => {
+		const token = localStorage.getItem("token");
+try {
+	if (token) {
+		setToken(token);
+		axios.defaults.headers.common.Authorization =
+			"Bearer " + token;
+
+		axios
+			.get("auth/whoami")
+			.then((res) => {
+				setUser(res.data.data);
+				setRol(res.data.data.role);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}
+} catch (error) {
+	console.log(error)
+}
+		
+	}, []);
+
 
 	// const join = async (params) => {
 	//   try {
@@ -107,8 +123,49 @@ export function AuthContextProvider({ children }) {
 		setToken(null);
 		localStorage.removeItem("token");
 		axios.defaults.headers.common.Authorization = null;
+		// setUser(null)
 		Cookies.remove("authorization")
 	};
+
+// this is the function to add employee details...................
+
+const addDetails = async(
+	post, 
+	department,
+	qualification,
+	fathersName,
+	mothersName,
+	dob,
+	category,
+	religion,
+	nationality,
+	aadharNo,
+	address
+	)=>{
+	try {
+		const empData=await axios.post("newEmployee/add_details", {
+			post,
+			department,
+			qualification,
+			fathersName,
+			mothersName,
+			dob,
+			category,
+			religion,
+			nationality,
+			aadharNo,
+			address,
+		});
+		setEmployee(empData.data)
+		console.log("this is employee", employee)
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+
+
+
 
 	// these are some imp values which are globally available to the application
 	const value = {
@@ -118,6 +175,8 @@ export function AuthContextProvider({ children }) {
 		logout,
 		user,
 		rol,
+		employee,
+		addDetails,
 	};
 
 	return (

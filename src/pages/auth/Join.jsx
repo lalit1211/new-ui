@@ -27,8 +27,8 @@ export default function Join(){
     //     })
     // }
 
-    const handleClick = () => {
-        axios.post("auth/sign_up", {
+    const handleClick = async() => {
+        await axios.post("auth/sign_up", {
             name,
             email,
             password,
