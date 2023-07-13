@@ -17,9 +17,11 @@ export default function Admin(){
     const{user,logout}= useAuth()
     const [toggle, setToggle] = useState(false)
     const [toggle1, setToggle1] = useState(false)
+    const [toggle2, setToggle2] = useState(false)
     const [emp_id, setEmp_id] = useState()
     const [userData, setUserData] = useState()
     const [view1, setView1]= useState(false)
+    const [allEmployee, setAllEmployee]= useState([])
 
 
     const view = async () => {
@@ -36,6 +38,16 @@ export default function Admin(){
             console.log(e);
         }
     }
+
+    const AllEmp = async()=>{
+        try{
+            let empp = await axios.get("http://localhost:8000/api/v1/newEmployee/all_emp")
+            setAllEmployee(empp.data.data)
+        } catch(e){
+            console.log(e)
+        }
+    }
+    console.log("-----------------", allEmployee)
 
 
 
@@ -109,6 +121,7 @@ export default function Admin(){
 
                 <Button className="bt"
                     onClick={() => {
+                        AllEmp()
                         // setToggle1(!toggle1)
                         // console.log("toggle", toggle)
                     }}
@@ -182,6 +195,7 @@ export default function Admin(){
                         required
                         onChange={(e) => {
                             setEmp_id(e.target.value);
+                            setToggle2(!toggle2)
                         }}
                     />
                     <Button className="bt"
@@ -197,6 +211,51 @@ export default function Admin(){
                     
                 </div>
             </div>
+                : null
+            }
+
+{/* {
+    toggle1 == true? <div
+} */}
+
+
+
+            {toggle == true ?
+            //  <div className="emp-detail">
+                <div
+                style={{
+                        backgroundColor:"#121212"
+                }}
+                >
+                    The all employee details are below...
+                    {
+                    allEmployee.map((el)=>{
+                        return (
+                            <div className="emp-detail">
+                                <h5>Name:    {el?.name}</h5>
+                                <h5>Email: {el?.email}</h5>
+                                <h5>Employee Id: {el?.emp_id}</h5>
+                                <h5>Role: {el?.role}</h5>
+                                <h5>Post: {el?.post}</h5>
+                                <h5>Department: {el?.department}</h5>
+                                <h5>Qualifications: {el?.qualification}</h5>
+                                <h5>Father's Name: {el?.fathersName}</h5>
+                                <h5>Mother's Name: {el?.mothersName}</h5>
+                                <h5>DOB: {el?.dob}</h5>
+                                <h5>Category: {el?.category}</h5>
+                                <h5>Religion: {el?.religion}</h5>
+                                <h5>Nationality: {el?.nationality}</h5>
+                                <h5>Aadhar No: {el?.aadharNo}</h5>
+                                <h5>Address: {el?.address}</h5>
+                            </div>
+                        )
+                    })
+                    }
+
+
+                    
+                </div>
+            // </div>
                 : null
             }
         </div>
