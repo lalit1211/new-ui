@@ -3,7 +3,9 @@ import Employee from "../app/main/Employee"
 import Admin from "../app/main/Admin"
 import useAuth from "../../context/Auth.context";
 
-export default function Home(){
+export default function 
+
+Home(){
     let {user,rol} = useAuth()
     // let dec = user.role
 
@@ -13,6 +15,6 @@ export default function Home(){
 
 
     return<>
-    {rol==="employee" ? <Employee /> : <Admin /> }
+    {rol=="employee" ? <Employee /> : <Admin /> }
     </>
 }

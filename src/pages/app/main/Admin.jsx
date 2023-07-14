@@ -14,14 +14,38 @@ import axios from "axios";
 
 
 export default function Admin(){
-    const{user,logout}= useAuth()
+    const { user, logout, updateEmployee }= useAuth()
     const [toggle, setToggle] = useState(false)
     const [toggle1, setToggle1] = useState(false)
     const [toggle2, setToggle2] = useState(false)
     const [emp_id, setEmp_id] = useState()
     const [userData, setUserData] = useState()
     const [view1, setView1]= useState(false)
+    const [view2, setView2]= useState(false)
+    const [update, setUpdate] = useState(false)
     const [allEmployee, setAllEmployee]= useState([])
+
+    // ...................................................
+    const [name, setName] = useState()
+    const [email, setEmail] = useState()
+    const [post, setPost] = useState()
+    const [department, setDepartment] = useState()
+    const [qualification, setQualifcation] = useState()
+    const [fathersName, setFathersName] = useState()
+    const [mothersName, setMothersName] = useState()
+    const [dob, setDob] = useState()
+    const [category, setCatgory] = useState()
+    const [religion, setReligion] = useState()
+    const [nationality, setNationality] = useState()
+    const [aadharNo, setAadharNo] = useState()
+    const [address, setAddress] = useState()
+
+
+    const newDetails= ()=>{
+        updateEmployee(emp_id,name,email,post,department,qualification,fathersName,
+            mothersName,dob,category,nationality,religion,aadharNo,address)
+    }
+    // ....................................................
 
 
     const view = async () => {
@@ -47,20 +71,7 @@ export default function Admin(){
             console.log(e)
         }
     }
-    console.log("-----------------", allEmployee)
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    // console.log("-----------------", allEmployee)
 
 
 
@@ -122,11 +133,21 @@ export default function Admin(){
                 <Button className="bt"
                     onClick={() => {
                         AllEmp()
-                        // setToggle1(!toggle1)
+                        setToggle2(!toggle2)
                         // console.log("toggle", toggle)
                     }}
                 >
                     View All Employee
+                </Button>
+
+                <Button className="bt"
+                    onClick={() => {
+                        setUpdate(!update)
+                        // setToggle1(!toggle1)
+                        // console.log("toggle", toggle)
+                    }}
+                >
+                    Update Employee
                 </Button>
             </div>
 
@@ -135,7 +156,6 @@ export default function Admin(){
 
 
 {/* view employee details................. */}
-            {/* show all employee details.............................. */}
             {toggle == true ? <div className="emp-detailss">
                 <div>View Employee Details
                     <TextInput
@@ -214,13 +234,11 @@ export default function Admin(){
                 : null
             }
 
-{/* {
-    toggle1 == true? <div
-} */}
 
 
 
-            {toggle == true ?
+{/* view all employee....................... */}
+            {toggle2 == true ?
             //  <div className="emp-detail">
                 <div
                 style={{
@@ -257,6 +275,180 @@ export default function Admin(){
                 </div>
             // </div>
                 : null
+            }
+
+
+
+
+
+            {
+                update==true ? <div>
+                    <div>Update Employee Details
+                        <TextInput
+                            placeholder='Email Address'
+                            required
+                            onChange={(e) => {
+                                setEmp_id(e.target.value);
+                            }}
+                        />
+                        <Button className="bt"
+                            onClick={
+                                () => {
+                                    view()
+                                    // setEmp_id()
+                                    setView2(!view2)
+                                }
+                            }
+                        >
+                            View
+                        </Button>
+
+                    </div>
+
+
+
+                    {view2 == true ? <div className="emp-detail">
+                        <div>
+                            <h5>Name:    {userData?.name}</h5>
+                            <h5>Email: {userData?.email}</h5>
+                            <h5>Employee Id: {userData?.emp_id}</h5>
+                            <h5>Role: {userData?.role}</h5>
+                            <h5>Post: {userData?.post}</h5>
+                            <h5>Department: {userData?.department}</h5>
+                            <h5>Qualifications: {userData?.qualification}</h5>
+                            <h5>Father's Name: {userData?.fathersName}</h5>
+                            <h5>Mother's Name: {userData?.mothersName}</h5>
+                            <h5>DOB: {userData?.dob}</h5>
+                            <h5>Category: {userData?.category}</h5>
+                            <h5>Religion: {userData?.religion}</h5>
+                            <h5>Nationality: {userData?.nationality}</h5>
+                            <h5>Aadhar No: {userData?.aadharNo}</h5>
+                            <h5>Address: {userData?.address}</h5>
+
+                            <hr />
+
+                            <Text
+                                className="Text"
+                                size='xl' weight={700}>
+                                Add your details
+                            </Text>
+                            <TextInput
+                                className="input"
+                                placeholder='Update Name'
+                                required
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Email'
+                                required
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Post'
+                                required
+                                onChange={(e) => {
+                                    setPost(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Department Name'
+                                required
+                                onChange={(e) => {
+                                    setDepartment(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Qualifications'
+                                required
+                                onChange={(e) => {
+                                    setQualifcation(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Fathers Name'
+                                required
+                                onChange={(e) => {
+                                    setFathersName(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Mothers Name'
+                                required
+                                onChange={(e) => {
+                                    setMothersName(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Date of Birth'
+                                required
+                                onChange={(e) => {
+                                    setDob(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Category'
+                                required
+                                onChange={(e) => {
+                                    setCatgory(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Religion'
+                                required
+                                onChange={(e) => {
+                                    setReligion(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Nationality'
+                                required
+                                onChange={(e) => {
+                                    setNationality(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Aadhar No.'
+                                required
+                                onChange={(e) => {
+                                    setAadharNo(e.target.value);
+                                }}
+                            />
+                            <TextInput
+                                className="input"
+                                placeholder='Update Your Address'
+                                required
+                                onChange={(e) => {
+                                    setAddress(e.target.value);
+                                }}
+                            />
+
+                            <Button className="bt1"
+                                onClick={newDetails}
+                            >
+                                Submit
+                            </Button>
+                        </div>
+
+                    </div>
+                        : null
+                    }
+
+                </div> : null
             }
         </div>
     </div>

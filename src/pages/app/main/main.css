@@ -16,15 +16,16 @@
 .logout:hover{
     cursor: pointer;
     background-color: red;
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 20%;
+    padding: 3px;
 }
 
 .text{
     color: #211f1fcf;
 }
 .emp-detail{
-    height: 500px;
+    height: auto;
     width: 80%;
     margin-left: 10%;
     border: 2px solid #e7ddd1;
@@ -54,4 +55,7 @@
 }
 .bt1{
     margin-top: 5px;
+}
+hr{
+    margin: 20px;
 }

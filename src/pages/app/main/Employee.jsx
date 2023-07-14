@@ -168,7 +168,7 @@ export default function Employee() {
                         <Text
                             className="Text"
                             size='xl' weight={700}>
-                            Add your details
+                            Update Employee details.
                         </Text>
                         <TextInput
                             className="input"

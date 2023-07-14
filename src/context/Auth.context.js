@@ -163,6 +163,50 @@ const addDetails = async(
 	}
 }
 
+// `````````````````````````` UPDATE EMPLOYEE...................................
+const updateEmployee= async(
+	emp_id,
+	name,
+	email,
+	post,
+	department,
+	qualification,
+	fathersName,
+	mothersName,
+	dob,
+	category,
+	religion,
+	nationality,
+	aadharNo,
+	address,
+)=>{
+	try {
+		const empData = await axios.put(
+			"newEmployee/update_Employee",
+			{
+				emp_id,
+				name,
+				email,
+				post,
+				department,
+				qualification,
+				fathersName,
+				mothersName,
+				dob,
+				category,
+				religion,
+				nationality,
+				aadharNo,
+				address,
+			},
+		);
+		setEmployee(empData.data);
+		// console.log("this is employee", employee);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 
 
 
@@ -176,6 +220,7 @@ const addDetails = async(
 		user,
 		rol,
 		employee,
+		updateEmployee,
 		addDetails,
 	};
 
